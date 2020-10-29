@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: aws-exporter
-          image: xrstf/aws_exporter:0.1.0
+          image: xrstf/aws_exporter:latest
           args:
             - -listen=0.0.0.0:9759
           env:
