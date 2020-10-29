@@ -23,40 +23,40 @@ spec:
         prometheus.io/port: '9759'
     spec:
       containers:
-      - name: aws-exporter
-        image: 'xrstf/aws_exporter:latest'
-        args:
-        - -listen=0.0.0.0:9759
-        env:
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: accessKeyID
-        - name: AWS_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: aws-credentials
-              key: secretKey
-        ports:
-        - name: metrics
-          containerPort: 9759
-          protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /metrics
-            port: metrics
-        readinessProbe:
-          httpGet:
-            path: /metrics
-            port: metrics
-        resources:
-          requests:
-            cpu: 50m
-            memory: 64Mi
-          limits:
-            cpu: 1
-            memory: 128Mi
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 65534
+        - name: aws-exporter
+          image: xrstf/aws_exporter:0.1.0
+          args:
+            - -listen=0.0.0.0:9759
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: accessKeyID
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: secretKey
+          ports:
+            - name: metrics
+              containerPort: 9759
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: metrics
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 1
+              memory: 128Mi
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
